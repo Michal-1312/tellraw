@@ -31,6 +31,11 @@ module.exports = {
       { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
 
       {
+        test: /\.worker\.js$/,
+        use: { loader: 'worker-loader' }
+      },
+
+      {
         test: /\.(scss)$/,
         use: [
           { loader: "style-loader" }, // inject CSS to page

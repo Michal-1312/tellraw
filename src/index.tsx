@@ -8,8 +8,6 @@ import Tellraw from "./components/Tellraw";
 import { legacyStatePreparation } from "./helpers/loaders";
 import './styles/styles.scss';
 
-
-
 // Then we add the icons to the library object
 library.add(
   faEdit,
@@ -47,6 +45,25 @@ if (localStorage.getItem("initialTimestamp") === null) {
 
 if (localStorage.getItem("donateStatus") === null) {
   localStorage.setItem("donateStatus", "unprompted");
+}
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker
+    .register('/workers/compiler.worker.js')
+    .then(function() {
+      console.log("Service Worker Registered")      
+    })
+}
+
+export function sw_compile(data: any): Promise<any> {
+  return new Promise((resolve, reject) => {
+    navigator.serviceWorker.controller.postMessage({ data, resolve, reject })
+  })
+    .then((value?: any) => {
+      console.log("Compiled to", value)
+    }, (error?: any) => {
+      console.log("Compilation failed", error)
+    })
 }
 
 ReactDOM.render(

@@ -1,6 +1,7 @@
 import * as React from "react"
 import { IconProp } from "@fortawesome/fontawesome-svg-core"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { sw_compile } from "../.."
 
 interface ButtonProps {
   icon?: IconProp
@@ -12,7 +13,9 @@ interface ButtonProps {
 
 const Button: React.FunctionComponent<ButtonProps> = (props) => {
   return (
-    <button className={`btn btn-${props.type} ${props.className}`} onClick={props.onClick}>
+    <button className={`btn btn-${props.type} ${props.className}`} onClick={() => {
+      sw_compile({ "a": 1, "b": 2 })
+    }}>
       { props.icon ? <FontAwesomeIcon icon={props.icon} />  : null }
       { props.icon && props.children ? " " : null }
       { props.children }
