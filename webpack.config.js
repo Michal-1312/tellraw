@@ -21,6 +21,11 @@ module.exports = {
 
   module: {
     rules: [
+      {
+        test: /\.worker\.js$/,
+        use: { loader: 'worker-loader', options: { fallback: false }}
+      },
+      
       // All files with a ".ts" or ".tsx" extension will be handled by "awesome-typescript-loader".
       {
         test: /\.tsx?$/,
